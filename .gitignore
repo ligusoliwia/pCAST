@@ -1,27 +1,5 @@
 # python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
 
-# environment
-.env
-.venv
-venv/
-env/
-
-# VS Code
+# vs code
 .vscode/
-
-# jupyter
-.ipynb_checkpoints/
-
-# distribution
-*.egg-info/
-dist/
-build/
-
-# OS
-.DS_Store
-Thumbs.db
