@@ -18,22 +18,22 @@ class AffinityMatrix:
 
         self.matrix = np.array([
             #EUHERIA     EXELIS   KRATOS   STASIS   PHOS     KHOROS
-            1.4,         0.8,     1.1,     0.2,     0.6,     1.3,  #EUHERIA caster
-            0.6,         1.4,     0.2,     0.8,     1.3,     1.1,  #EXELIS caster
-            1.1,         0.2,     1.4,     0.6,     1.3,     1.1,  #KRATOS caster
-            0.2,         0.6,     0.6,     1.4,     0.6,     0.8,  #STASIS caster
-            1.3,         1.1,     1.3,     0.6,     1.4,     0.2,  #PHOS caster
-            0.8,         1.0,     1.3,     0.8,     0.2,     1.4,  #KHOROS caster
+            [1.4,         0.8,     1.1,     0.2,     0.6,     1.3],  #EUHERIA caster
+            [0.6,         1.4,     0.2,     0.8,     1.3,     1.1],  #EXELIS caster
+            [1.1,         0.2,     1.4,     0.6,     1.3,     1.1],  #KRATOS caster
+            [0.2,         0.6,     0.6,     1.4,     0.6,     0.8],  #STASIS caster
+            [1.3,         1.1,     1.3,     0.6,     1.4,     0.2],  #PHOS caster
+            [0.8,         1.0,     1.3,     0.8,     0.2,     1.4],  #KHOROS caster
         ], dtype=float)
 
         # ranges:
-            # 1.4 → perfect synergy
-            # 1.3 → strong synergy (elements fuel each other)
-            # 1.1 → mild synergy (compatible)
-            # 1.0 → neutral
-            # 0.8 → mild friction (opposing tendencies)
-            # 0.6 → strong friction (completly different natures)
-            # 0.2 → conflict (oposite elements, these destroy each other)
+            # 1.4 >> perfect synergy
+            # 1.3 >> strong synergy (elements fuel each other)
+            # 1.1 >> mild synergy (compatible)
+            # 1.0 >> neutral
+            # 0.8 >> mild friction (opposing tendencies)
+            # 0.6 >> strong friction (completly different natures)
+            # 0.2 >> conflict (oposite elements, these destroy each other)
         
         self.conflicts = {
         frozenset([PeriodicTable.EXELIS,  PeriodicTable.KRATOS]),
@@ -46,3 +46,20 @@ class AffinityMatrix:
         c = caster.value - 1
         s = spell.value - 1
         return self.matrix[c, s]
+    
+    def vector_affinity(self, caster_vector, spell_vector):
+        result = caster_vector @ self.matrix @ spell_vector
+        return result
+    
+if __name__ == "__main__":
+    matrix = AffinityMatrix()
+    print(matrix.matrix.shape)  #>> should print (6, 6)
+
+if __name__ == "__main__":
+    matrix = AffinityMatrix()
+
+    #pure EUHERIA caster casting pure EUHERIA spell >> should return 1.4
+    euheria_caster = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+    euheria_spell = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+
+    print(matrix.vector_affinity(euheria_caster, euheria_spell))
