@@ -16,6 +16,8 @@ class AffinityMatrix:
     def __init__(self):
         self.elements = list(PeriodicTable)
 
+        #TODO
+        #fix power scaling → stasis up, phos and kratos down FULL REBALANCE
         self.matrix = np.array([
             #EUHERIA     EXELIS   KRATOS   STASIS   PHOS     KHOROS
             [1.4,         0.8,     1.1,     0.2,     0.6,     1.3],  #EUHERIA caster
@@ -51,15 +53,30 @@ class AffinityMatrix:
         result = caster_vector @ self.matrix @ spell_vector
         return result
     
+    def dominant_element(self):
+        eigenvalues, eigenvectors = np.linalg.eig(self.matrix)
+        dominant_index = np.argmax(eigenvalues)
+        dominant_vector = eigenvectors[:, dominant_index]
+        
+        scaling = np.abs(dominant_vector.real)
+        ranking = sorted(
+            zip(self.elements, scaling),
+            key = lambda x: x[1],
+            reverse = True 
+        )
+        return ranking
+    
 if __name__ == "__main__":
     matrix = AffinityMatrix()
     print(matrix.matrix.shape)  #>> should print (6, 6)
-
-if __name__ == "__main__":
-    matrix = AffinityMatrix()
 
     #pure EUHERIA caster casting pure EUHERIA spell >> should return 1.4
     euheria_caster = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     euheria_spell = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 
     print(matrix.vector_affinity(euheria_caster, euheria_spell))
+
+    print("\ndominant element ranking:")
+    for element, scale in matrix.dominant_element():
+        bar = "█" * int(scale * 20)
+        print(f"  {element.name:<10} {scale:.4f}  {bar}")
