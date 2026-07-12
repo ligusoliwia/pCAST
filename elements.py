@@ -67,6 +67,16 @@ class AffinityMatrix:
     def is_conflicted(self, e1: PeriodicTable, e2: PeriodicTable) -> bool:
         return frozenset([e1, e2]) in self.conflicts
     
+# —— ARCANE SCHOOLS LOADER;
+
+def load_schools(path:str = None) -> list[dict]:
+    if path is None:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(base_dir, "arcane_data", "arcane_schools.json")
+    with open (path, "r") as sqls:
+        arcane_schools = json.load(sqls)
+    return arcane_schools
+    
 if __name__ == "__main__":
     matrix = AffinityMatrix()
     print(matrix.matrix.shape)  #>> should print (6, 6)
@@ -81,4 +91,9 @@ if __name__ == "__main__":
     for element, scale in matrix.dominant_element():
         bar = "█" * int(scale * 20)
         print(f"  {element.name:<10} {scale:.4f}  {bar}")
+
+    # test for schools:
+    schools = load_schools()
+    for s in schools:
+        print(s["name", s["elements"]])
         
