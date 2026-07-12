@@ -76,6 +76,13 @@ def load_schools(path:str = None) -> list[dict]:
     with open (path, "r") as sqls:
         arcane_schools = json.load(sqls)
     return arcane_schools
+
+def build_sqls_enum(arcane_schools: list[dict]):
+    return Enum("ArcaneSchool", {s["id"]: s["id"] for s in arcane_schools})
+
+#TODO
+def build_sqls_elements(arcane_schools: list[dict], ArcaneSchools) -> dict:
+    return [(PeriodicTable[s["elements"][0]], PeriodicTable[s["elements"][1]]) for s in arcane_schools]
     
 if __name__ == "__main__":
     print("running tests...")
