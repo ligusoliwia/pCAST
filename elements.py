@@ -95,5 +95,5 @@ if __name__ == "__main__":
     # test for schools:
     schools = load_schools()
     for s in schools:
-        print(s["name", s["elements"]])
+        print(s["name"], s["elements"])
         
