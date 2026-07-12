@@ -9,23 +9,21 @@ class PeriodicTable(Enum):
     EXELIS = auto() #water, the element of change
     KRATOS = auto() #fire, the element of power
     STASIS = auto() #earth, the element of stability
-    PHOS = auto() #light, the element of energy
+    PHOS = auto() #light, the element of illumination
     KHOROS = auto() #chaos, the element of entropy
 
 class AffinityMatrix:
     def __init__(self):
         self.elements = list(PeriodicTable)
 
-        #TODO
-        #fix power scaling → stasis up, phos and kratos down FULL REBALANCE
         self.matrix = np.array([
             #EUHERIA     EXELIS   KRATOS   STASIS   PHOS     KHOROS
-            [1.4,         0.8,     1.1,     0.2,     0.6,     1.3],  #EUHERIA caster
-            [0.6,         1.4,     0.2,     0.8,     1.3,     1.1],  #EXELIS caster
-            [1.1,         0.2,     1.4,     0.6,     1.3,     1.1],  #KRATOS caster
-            [0.2,         0.6,     0.6,     1.4,     0.6,     0.8],  #STASIS caster
-            [1.3,         1.1,     1.3,     0.6,     1.4,     0.2],  #PHOS caster
-            [0.8,         1.0,     1.3,     0.8,     0.2,     1.4],  #KHOROS caster
+            [1.4,         1.0,     1.1,     0.2,     0.8,     1.1],  #EUHERIA caster
+            [1.1,         1.4,     0.2,     1.1,     1.1,     1.1],  #EXELIS caster
+            [1.3,         0.2,     1.4,     1.1,     1.3,     0.6],  #KRATOS caster
+            [0.2,         0.8,     1.1,     1.4,     0.6,     1.3],  #STASIS caster
+            [0.8,         1.1,     1.3,     0.8,     1.4,     0.2],  #PHOS caster
+            [1.3,         1.3,     0.6,     1.3,     0.2,     1.4],  #KHOROS caster
         ], dtype=float)
 
         # ranges:
@@ -34,7 +32,7 @@ class AffinityMatrix:
             # 1.1 >> mild synergy (compatible)
             # 1.0 >> neutral
             # 0.8 >> mild friction (opposing tendencies)
-            # 0.6 >> strong friction (completly different natures)
+            # 0.6 >> strong friction (different natures)
             # 0.2 >> conflict (oposite elements, these destroy each other)
         
         self.conflicts = {
@@ -65,6 +63,9 @@ class AffinityMatrix:
             reverse = True 
         )
         return ranking
+
+    def is_conflicted(self, e1: PeriodicTable, e2: PeriodicTable) -> bool:
+        return frozenset([e1, e2]) in self.conflicts
     
 if __name__ == "__main__":
     matrix = AffinityMatrix()
@@ -80,3 +81,4 @@ if __name__ == "__main__":
     for element, scale in matrix.dominant_element():
         bar = "█" * int(scale * 20)
         print(f"  {element.name:<10} {scale:.4f}  {bar}")
+        

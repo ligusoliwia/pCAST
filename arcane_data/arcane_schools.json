@@ -1,0 +1,58 @@
+[
+    {
+        "id": "ABJURATION",
+        "name": "Abjuration",
+        "elements": ["KRATOS", "PHOS"],
+        "purpose": "protective and warding spells",
+        "base_train_time": 100
+    },
+    {
+        "id": "CONJURATION",
+        "name": "Conjuration",
+        "elements": ["EXELIS", "EUHERIA"],
+        "purpose": "spells that summon objects or creatures",
+        "base_train_time": 100
+    },
+    {
+        "id": "DIVINATION",
+        "name": "Divination",
+        "elements": ["PHOS", "STASIS"],
+        "purpose": "spells that reveal secrets, future or hidden locations",
+        "base_train_time": 100
+    },
+    {
+        "id": "ENCHANTMENT",
+        "name": "Enchantment",
+        "elements": ["KHOROS", "EUHERIA"],
+        "purpose": "spells that charm or manipulate the minds of others",
+        "base_train_time": 120
+    },
+    {
+        "id": "EVOCATION",
+        "name": "Evocation",
+        "elements": ["KRATOS", "STASIS"],
+        "purpose": "destructive or healing magic",
+        "base_train_time": 120
+    },
+    {
+        "id": "ILLUSION",
+        "name": "Illusion",
+        "elements": ["PHOS", "EUHERIA"],
+        "purpose": "spells that deceive the senses",
+        "base_train_time": 120
+    },
+    {
+        "id": "NECROMANCY",
+        "name": "Necromancy",
+        "elements": ["EXELIS", "STASIS"],
+        "purpose": "magic dealing with the dead, life and the undead",
+        "base_train_time": 150
+    },
+    {
+        "id": "TRANSMUTATION",
+        "name": "Transmutation",
+        "elements": ["KHOROS", "EXELIS"],
+        "purpose": "shapeshifters and beasts",
+        "base_train_time": 150
+    }
+]
