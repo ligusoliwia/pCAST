@@ -78,6 +78,8 @@ def load_schools(path:str = None) -> list[dict]:
     return arcane_schools
     
 if __name__ == "__main__":
+    print("running tests...")
+
     matrix = AffinityMatrix()
     print(matrix.matrix.shape)  #>> should print (6, 6)
 
