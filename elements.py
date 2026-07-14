@@ -1,6 +1,5 @@
 import numpy as np
 from enum import Enum, auto
-from typing import Optional
 import json
 import os
 
@@ -84,6 +83,8 @@ def build_sqls_enum(arcane_schools: list[dict]):
 def build_sqls_elements(arcane_schools: list[dict], ArcaneSchools) -> dict:
     return [(PeriodicTable[s["elements"][0]], PeriodicTable[s["elements"][1]]) for s in arcane_schools]
     
+# —— TEST for file
+
 if __name__ == "__main__":
     print("running tests...")
 
